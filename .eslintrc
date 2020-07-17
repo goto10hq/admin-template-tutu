@@ -1,0 +1,45 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:vue/recommended"
+  ],
+  "rules": {
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "import/no-unresolved": 0,
+    "import/no-unassigned-import": 0,
+    "semi": [
+      "error",
+      "never"
+    ],
+    "no-console": "off",
+    "space-before-function-paren": [
+      "error",
+      {
+        "anonymous": "always",
+        "named": "always",
+        "asyncArrow": "always"
+      }
+    ],
+    "vue/html-self-closing": [
+      "never"
+    ],
+    "vue/max-attributes-per-line": [
+      "never"
+    ],
+    "vue/singleline-html-element-content-newline": [
+      "never"
+    ],
+    "vue/multiline-html-element-content-newline": [
+      "never"
+    ]
+  },
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "jquery": true
+  }
+}

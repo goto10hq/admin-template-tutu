@@ -1,0 +1,16 @@
+/* HELPERS */
+$ggw: $grid-gutter-width !default;
+$ggw-half: $ggw / 2 !default;
+
+$tutu-font-size-root: 18px !default;
+$tutu-font-size-root-sm: 14px !default;
+
+$tutu-sidebar-bg: darken($light, 4) !default;
+$tutu-sidebar-icon-width: 3rem !default;
+$tutu-sidebar-row-padding-y: 0.65rem !default;
+$tutu-sidebar-width: 18.5rem !default;
+$tutu-sidebar-max-width: 280px !default;
+
+$tutu-layout-border-color: #ccc !default;
+
+$tutu-src-path: '~tutu/src' !default;
