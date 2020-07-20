@@ -1,4 +1,10 @@
-﻿/* ---------- legacy stuff ---------- */
+﻿{/* <style lang="sass">
+@import '../../src/scss/tutu.scss';
+</style> */}
+
+import '../../src/scss/tutu.scss'
+
+/* ---------- legacy stuff ---------- */
 
 // eslint-disable-next-line no-global-assign
 $ = window.jQuery = window.$ = require('jquery')

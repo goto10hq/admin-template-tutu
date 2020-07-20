@@ -226,6 +226,3 @@
     }
   }
 </script>
-<style lang="sass">
-@import '../../src/scss/tutu.scss';
-</style>

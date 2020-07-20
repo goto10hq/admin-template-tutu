@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-undef
 module.exports = {
-  entry: 'src/index.js',    
+  entry: 'src/index.js',
   output: {
     format: 'umd',
     moduleName: 'tutu'

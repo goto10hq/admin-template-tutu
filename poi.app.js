@@ -4,5 +4,5 @@ module.exports = {
   output: {
     dir: 'docs',
     publicUrl: './'
-  } 
+  }  
 }
