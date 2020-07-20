@@ -27,7 +27,7 @@
   ],
   "private": false,
   "scripts": {
-    "build": "poi --prod --config ./poi.app.js --public-url https://goto10hq.github.io/admin-template-tutu/ && poi --prod --config ./poi.config.js && rm ./dist/index.html",
+    "build": "poi --prod --config ./poi.app.js --public-url https://goto10hq.github.io/admin-template-tutu/docs && poi --prod --config ./poi.config.js && rm ./dist/index.html",
     "dev": "poi --serve --config ./poi.app.js"
   },
   "devDependencies": {
