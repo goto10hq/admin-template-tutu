@@ -16,6 +16,7 @@ import Tutu from './_tutu.vue'
 import { sync } from 'vuex-router-sync'
 import axios from 'axios'
 import config from './config.js'
+import VuexPersistence from 'vuex-persist'
 
 /* ------------ vuelidate ----------- */
 
@@ -44,7 +45,12 @@ const store = new Vuex.Store({
         picnic (state) {
             state.working = false
         }
-    }
+    },
+    plugins: [new VuexPersistence({
+        reducer: (state) => ({
+            user: state.user
+        })
+    }).plugin]
 })
 
 /* ------------- router ------------- */
@@ -87,8 +93,8 @@ router.beforeEach(function (to, from, next) {
     if (to.matched.some(record => record.meta.requiresAuth)) {
         if (config.devMode) {
             if (store.state.user == null) {
-                store.commit('setUser', { login: 'foo' })
-            }
+                next({ path: config.signInUrl })
+            }            
             next()
         }
         else {
@@ -118,7 +124,7 @@ router.beforeEach(function (to, from, next) {
 
 new Vue({
     router,
-    store,
+    store,    
     render: h => h(Tutu)
 }).$mount('#app')
 
