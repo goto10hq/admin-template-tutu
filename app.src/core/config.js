@@ -4,13 +4,51 @@ export default {
     // global
     devMode: true,
     mountedElement: '#app',
+    title: 'TUTU',
     // sign in            
+    signInTitle: 'Signing in',
     signInUrl: '/sign-in',
     signInAjaxUrl: '/api/sign-in',
     getLoginInfoAjaxUrl: '/api/get-login-info',
+    login: 'Login',
+    password: 'Password',
+    loginRequired: 'Login is required.',
+    passwordRequired: 'Password is required.',
+    signInButton: 'Sign in',
+    signInIcon: 'ti-user',
     // sign out
-    signOutAjaxUrl: '/api/sign-out',
+    signOutAjaxUrl: '/api/sign-out',    
     // menu
+    // menuHeader: {
+    //     icon: 'ti-star',
+    //     text: 'Menu!'
+    // },
+    userMenu: [
+        {
+            icon: 'ti-alarm-clock',
+            text: 'One',
+            name: 'one',
+            path: '/one',
+            params: {},
+            component: Generic
+        },
+        {
+            icon: 'ti-gallery',
+            text: 'Two',
+            name: 'two',
+            path: '/two',
+            params: {},
+            component: Generic
+        },
+        {
+            type: 'divider'
+        },
+        {
+            icon: 'ti-face-sad',
+            type: 'sign-out',
+            text: 'Sign out!'
+        }
+    ],
     menu: [
         {
             icon: 'ti-dashboard',
@@ -84,6 +122,21 @@ export default {
             ]
         }
     ],
+    // footer
+    footer: [
+        // {
+        //     icon: 'ti-rocket',
+        //     text: 'Reset',
+        //     name: 'dashboard',
+        //     path: '/dashboard',
+        //     params: {},
+        //     component: Generic
+        // }
+    ],
+    footerToggleButton: {
+        icon: '',
+        text: ''
+    },
 
     /* ------------ CUSTOM ----------- */
 

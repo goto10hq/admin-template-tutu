@@ -5,7 +5,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
-import Tutu from '../pages/_tutu.vue'
+import TutuLayout from '../pages/_tutu.vue'
 import { sync } from 'vuex-router-sync'
 import axios from 'axios'
 import Vuelidate from 'vuelidate'
@@ -13,7 +13,7 @@ import SignIn from '../pages/sign-in.vue'
 import NotFound from '../pages/not-found.vue'
 import Store from './store'
 
-export class Bootstrap {
+export class Tutu {
     // config
     // signIn
     // notFound
@@ -95,7 +95,7 @@ export class Bootstrap {
         new Vue({
             router,
             store,
-            render: h => h(Tutu)
+            render: h => h(TutuLayout)
         }).$mount(config.mountedElement)
 
         sync(store, router)

@@ -1,31 +1,38 @@
 ﻿<template>
   <div class="card mx-auto w-max-5">
-    <div class="card-header">Signing in</div>
-    <div class="card-body">
+    <div class="card-header">
+      <slot name="header">
+        {{ $store.state.config.signInTitle }}
+      </slot>
+    </div>
+    <div class="card-body">      
       <alert :errors="errors"></alert>
       <form method="post" @submit.prevent="signIn()" novalidate>
         <div class="form-group">
           <input v-model="x.login" type="text" class="form-control" required />
           <span class="floating-label">
-            <span v-show="!$v.x.login.$error">Login</span>
+            <span v-show="!$v.x.login.$error">{{ $store.state.config.login }}</span>
             <span
               v-show="$v.x.login.$error && !$v.x.login.required"
               class="error"
-            >Login is required.</span>
+            >{{ $store.state.config.loginRequired }}</span>
           </span>
         </div>
         <div class="form-group">
           <input v-model="x.password" type="password" class="form-control" required />
           <span class="floating-label">
-            <span v-show="!$v.x.password.$error">Password</span>
+            <span v-show="!$v.x.password.$error">{{ $store.state.config.password }}</span>
             <span
               v-show="$v.x.password.$error && !$v.x.password.required"
               class="error"
-            >Password is required.</span>
+            >{{ $store.state.config.passwordRequired }}</span>
           </span>
         </div>
         <div class="form-group text-center">
-          <button type="submit" class="btn btn-secondary"><span class="ti-user"></span> Sign in</button>
+          <button type="submit" class="btn btn-secondary">
+            <span :class="$store.state.config.signInIcon"></span>
+            {{ $store.state.config.signInButton }}
+          </button>
         </div>
       </form>
     </div>
@@ -33,13 +40,13 @@
 </template>
 <script>
   import { required } from 'vuelidate/lib/validators'
-  import axios from 'axios'  
+  import axios from 'axios'
   import alert from '../../src/components/alert.vue'
 
   export default {
     components: {
       alert
-    },    
+    },
     data () {
       return {
         working: false,
@@ -47,7 +54,7 @@
           login: '',
           password: ''
         },
-        errors: []        
+        errors: []
       }
     },
     validations () {

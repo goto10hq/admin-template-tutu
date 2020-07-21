@@ -16,7 +16,7 @@
           <router-link
             class="navbar-brand"
             :to="{ name: $store.state.config.menu[0].name, params: $store.state.config.menu[0].params }"
-          >TUTU</router-link>
+          >{{ $store.state.config.title }}</router-link>
         </div>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item dropdown">
@@ -29,10 +29,20 @@
               aria-expanded="false"
             >{{ $store.state.user.login }}</a>
             <div class="dropdown-menu dropdown-menu-right">
-              <span class="dropdown-item" href="#">Action</span>
-              <span class="dropdown-item" href="#">Another action</span>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#" @click.prevent="signOut()">Log out</a>
+              <template
+                v-if="$store.state.config.userMenu != null && $store.state.config.userMenu.length > 0"
+              >              
+                <router-link
+                  v-for="(m, mi) in $store.state.config.userMenu"
+                  :key="'user-menu-' + mi"
+                  v-slot="{ href, route, navigate, isActive }"                  
+                  :to="{ name: m.name, params: m.params }" 
+                >
+                  <a v-if="m.type == undefined" :href="href" class="dropdown-item"><i :class="m.icon"></i> {{ m.text }}</a>
+                  <div v-if="m.type == 'divider'" class="dropdown-divider"></div>
+                  <a v-if="m.type == 'sign-out'" class="dropdown-item" href="#" @click.prevent="signOut()"><i :class="m.icon"></i> {{ m.text }}</a>
+                </router-link>
+              </template>              
             </div>
           </li>
         </ul>
@@ -41,12 +51,12 @@
     <div class="content">
       <keep-alive>
         <aside v-if="$store.state.user != null" class="sidebar">
-          <div class="sidebar-header">
+          <div v-if="$store.state.config.menuHeader != null" class="sidebar-header">
             <div class="sidebar-nav-row">
               <span class="sidebar-nav-icon">
-                <i class="ti-star"></i>
+                <i :class="$store.state.config.menuHeader.icon"></i>
               </span>
-              <span class="sidebar-nav-text">Menu</span>
+              <span class="sidebar-nav-text">{{ $store.state.config.menuHeader.text }}</span>
             </div>
           </div>
           <div class="sidebar-body vertical-scroll custom-scrollbar">
@@ -117,11 +127,26 @@
             </nav>
           </div>
           <div class="sidebar-footer">
-            <div class="sidebar-nav-row">
+            <router-link
+              v-for="f in $store.state.config.footer"
+              :key="'f' + f.name"
+              :to="{ name: f.name, params: f.params }"
+              class="sidebar-nav-row"
+            >
               <span class="sidebar-nav-icon">
-                <i class="tutu-info"></i>
+                <i :class="f.icon"></i>
               </span>
-              <span class="sidebar-nav-text">footer</span>
+              <span class="sidebar-nav-text">{{ f.text }}</span>
+            </router-link>
+            <div v-if="$store.state.config.footerToggleButton != null" class="sidebar-nav-row">
+              <template
+                v-if="$store.state.config.footerToggleButton.text != null && $store.state.config.footerToggleButton.text != ''"
+              >
+                <span class="sidebar-nav-icon">
+                  <i :class="$store.state.config.footerToggleButton.icon"></i>
+                </span>
+                <span class="sidebar-nav-text">{{ $store.state.config.footerToggleButton.text }}</span>
+              </template>
               <button class="sidebar-nav-icon ml-auto visible-entire" @click="toggleSidebarWidth()">
                 <i class="ti-angle-double-left"></i>
               </button>
@@ -143,6 +168,8 @@
   </div>
 </template>
 <script>
+  // eslint-disable-next-line no-unused-vars
+  import { dropdown, collapse } from 'bootstrap'
   import helper from '../../src/js/helper.js'
   import axios from 'axios'
 
@@ -209,7 +236,7 @@
 
         if (self.$store.state.config.devMode) {
           self.$store.commit('setUser', null)
-          self.$router.push({ path: self.$store.state.signInUrl })
+          self.$router.push({ path: self.$store.state.config.signInUrl })
         } else {
           axios.post(self.$store.state.config.signOutAjaxUrl).then(response => {
             self.$store.commit('setUser', null)
