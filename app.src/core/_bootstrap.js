@@ -91,8 +91,11 @@ routes.push({ path: '*', component: NotFound })
 
 var router = new VueRouter({
     routes,
-    linkActiveClass: 'active'
-    //mode: 'history'
+    linkActiveClass: 'active',
+    //mode: 'history',
+    scrollBehavior (to, from, savedPosition) {
+        return savedPosition ? savedPosition : { x: 0, y: 0 }
+    }
 })
 
 router.beforeEach(function (to, from, next) {
@@ -100,7 +103,7 @@ router.beforeEach(function (to, from, next) {
         if (config.devMode) {
             if (store.state.user == null) {
                 next({ path: config.signInUrl })
-            }            
+            }
             next()
         }
         else {
@@ -130,7 +133,7 @@ router.beforeEach(function (to, from, next) {
 
 new Vue({
     router,
-    store,    
+    store,
     render: h => h(Tutu)
 }).$mount('#app')
 

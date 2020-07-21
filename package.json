@@ -4,10 +4,10 @@
   "description": "Admin template",
   "license": "MIT",
   "author": "frohikey",
-  "homepage": "https://github.com/frohikey/tutu",
+  "homepage": "https://github.com/goto10hq/admin-template-tutu",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/frohikey/tutu"
+    "url": "git+https://github.com/goto10hq/admin-template-tutu"
   },
   "browserslist": [
     "Last 4 versions",
