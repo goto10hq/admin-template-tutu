@@ -15,7 +15,7 @@
           </span>
           <router-link
             class="navbar-brand"
-            :to="{ name: config.menu[0].name, params: config.menu[0].params }"
+            :to="{ name: $store.state.config.menu[0].name, params: $store.state.config.menu[0].params }"
           >TUTU</router-link>
         </div>
         <ul class="navbar-nav ml-auto">
@@ -51,7 +51,7 @@
           </div>
           <div class="sidebar-body vertical-scroll custom-scrollbar">
             <nav class="sidebar-nav">
-              <template v-for="m in config.menu">
+              <template v-for="m in $store.state.config.menu">
                 <div :key="m.name" :class="getActiveMenuClass(m)" class="sidebar-nav-group">
                   <router-link
                     v-if="m.path != undefined && m.path != null"
@@ -145,16 +145,10 @@
 <script>
   import helper from '../../src/js/helper.js'
   import axios from 'axios'
-  import config from './config'
 
   export default {
     name: 'Tutu',
     mixins: [helper],
-    data () {
-      return {
-        config: config
-      }
-    },
     watch: {
       // eslint-disable-next-line no-unused-vars
       $route (to, from) {
@@ -168,7 +162,7 @@
       checkMenu (name) {
         let menu = null
         let submenu = null
-        for (let m of config.menu) {
+        for (let m of this.$store.state.config.menu) {
           if (name == m.name) {
             menu = m
             break
@@ -213,13 +207,13 @@
       signOut () {
         let self = this
 
-        if (config.devMode) {
+        if (self.$store.state.config.devMode) {
           self.$store.commit('setUser', null)
-          self.$router.push({ path: config.signInUrl })
+          self.$router.push({ path: self.$store.state.signInUrl })
         } else {
-          axios.post(config.signOutAjaxUrl).then(response => {
+          axios.post(self.$store.state.config.signOutAjaxUrl).then(response => {
             self.$store.commit('setUser', null)
-            self.$router.push({ path: config.signInUrl })
+            self.$router.push({ path: self.$store.state.config.signInUrl })
           })
         }
       }

@@ -33,14 +33,13 @@
 </template>
 <script>
   import { required } from 'vuelidate/lib/validators'
-  import axios from 'axios'
-  import config from './config'
+  import axios from 'axios'  
   import alert from '../../src/components/alert.vue'
 
   export default {
     components: {
       alert
-    },
+    },    
     data () {
       return {
         working: false,
@@ -48,7 +47,7 @@
           login: '',
           password: ''
         },
-        errors: []
+        errors: []        
       }
     },
     validations () {
@@ -93,13 +92,13 @@
         self.working = true
         self.errors = []
 
-        if (config.devMode) {
+        if (self.$store.state.config.devMode) {
           if (self.x.login === self.x.password) {
             self.$store.commit('setUser', { login: self.x.login })
             if (self.$store.state.user != null) {
               self.$router.push({
-                name: config.menu[0].name,
-                params: config.menu[0].params
+                name: self.$store.state.config.menu[0].name,
+                params: self.$store.state.config.menu[0].params
               })
             }
           } else {
@@ -110,14 +109,14 @@
           }
         } else {
           axios
-            .post(config.signInAjaxUrl, self.x)
+            .post(self.$store.state.config.signInAjaxUrl, self.x)
             .then(response => {
               self.working = false
               self.$store.commit('setUser', response.data)
               if (self.$store.state.user != null) {
                 self.$router.push({
-                  name: config.menu[0].name,
-                  params: config.menu[0].params
+                  name: self.$store.state.config.menu[0].name,
+                  params: self.$store.state.config.menu[0].params
                 })
               }
             })

@@ -1,7 +1,9 @@
 import Generic from '../app/generic.vue'
 
 export default {
+    // global
     devMode: true,
+    mountedElement: '#app',
     // sign in            
     signInUrl: '/sign-in',
     signInAjaxUrl: '/api/sign-in',
@@ -82,6 +84,9 @@ export default {
             ]
         }
     ],
+
+    /* ------------ CUSTOM ----------- */
+
     // mavon
     mavonToolbars: {
         bold: true,
