@@ -1,7 +1,12 @@
 ﻿<template>
   <sign-in>
+    <template v-slot:splash>
+      <div class="mx-auto w-max-5">
+        <h1 class="text-center mb-5 text-info">TUTU</h1>
+      </div>
+    </template>
     <template v-slot:header>
-      <h2 class="text-center">HELLO!</h2>
+      Sign in
     </template>
   </sign-in>
 </template>
