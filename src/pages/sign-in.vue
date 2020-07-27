@@ -1,6 +1,6 @@
 ﻿<template>
   <div>
-    <slot name="splash"></slot>    
+    <slot name="splash"></slot>
     <div class="card mx-auto w-max-5">
       <div class="card-header">
         <slot name="header">{{ $store.state.config.signInTitle }}</slot>
@@ -9,7 +9,13 @@
         <alert :errors="errors"></alert>
         <form method="post" @submit.prevent="signIn()" novalidate>
           <div class="form-group">
-            <input v-model="x.login" type="text" class="form-control" required />
+            <input
+              v-model="x.login"
+              type="text"
+              class="form-control"
+              :disabled="$store.state.working"
+              required
+            />
             <span class="floating-label">
               <span v-show="!$v.x.login.$error">{{ $store.state.config.login }}</span>
               <span
@@ -19,7 +25,13 @@
             </span>
           </div>
           <div class="form-group">
-            <input v-model="x.password" type="password" class="form-control" required />
+            <input
+              v-model="x.password"
+              type="password"
+              class="form-control"
+              :disabled="$store.state.working"
+              required
+            />
             <span class="floating-label">
               <span v-show="!$v.x.password.$error">{{ $store.state.config.password }}</span>
               <span
@@ -29,7 +41,7 @@
             </span>
           </div>
           <div class="form-group text-center">
-            <button type="submit" class="btn btn-secondary">
+            <button type="submit" class="btn btn-secondary" :disabled="$store.state.working">
               <span :class="$store.state.config.signInIcon"></span>
               {{ $store.state.config.signInButton }}
             </button>
@@ -97,11 +109,12 @@
         }
 
         self.$v.x.$reset()
-        self.working = true
+        self.$store.commit('work')
         self.errors = []
 
         if (self.$store.state.config.devMode) {
           if (self.x.login === self.x.password) {
+            self.$store.commit('picnic')
             self.$store.commit('setUser', { login: self.x.login })
             if (self.$store.state.user != null) {
               self.$router.push({
@@ -110,6 +123,7 @@
               })
             }
           } else {
+            self.$store.commit('fail')
             self.errors = {
               message: '',
               errors: [{ field: null, message: 'Invalid login or password.' }]
@@ -119,7 +133,7 @@
           axios
             .post(self.$store.state.config.signInAjaxUrl, self.x)
             .then(response => {
-              self.working = false
+              self.$store.commit('picnic')
               self.$store.commit('setUser', response.data)
               if (self.$store.state.user != null) {
                 self.$router.push({
@@ -129,7 +143,7 @@
               }
             })
             .catch(error => {
-              self.working = false
+              self.$store.commit('fail')
               try {
                 self.errors = error.response.data
               } catch (e) {

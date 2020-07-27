@@ -1,4 +1,5 @@
 import VuexPersistence from 'vuex-persist'
+import { EventBus } from './event-bus'
 
 export default {
     state: {
@@ -12,9 +13,15 @@ export default {
         },
         work (state) {
             state.working = true
+            EventBus.$emit('working', true)
         },
         picnic (state) {
             state.working = false
+            EventBus.$emit('working', false)
+        },
+        fail (state) {
+            state.working = false
+            EventBus.$emit('working', null)
         }
     },
     plugins: [new VuexPersistence({

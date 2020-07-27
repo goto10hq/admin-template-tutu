@@ -3,6 +3,7 @@
     class="wrapper"
     :class="[{'sidebar-collapsed' : isSidebarCollapsed}, isSidebarEntire ? 'sidebar-entire' : 'sidebar-compressed']"
   >
+    <top-progress ref="topProgress"></top-progress>
     <keep-alive>
       <nav v-if="$store.state.user != null" class="navbar navbar-expand navbar-light bg-light">
         <div class="sidebar-nav-row">
@@ -31,18 +32,29 @@
             <div class="dropdown-menu dropdown-menu-right">
               <template
                 v-if="$store.state.config.userMenu != null && $store.state.config.userMenu.length > 0"
-              >              
+              >
                 <router-link
                   v-for="(m, mi) in $store.state.config.userMenu"
                   :key="'user-menu-' + mi"
-                  v-slot="{ href, route, navigate, isActive }"                  
-                  :to="{ name: m.name, params: m.params }" 
+                  v-slot="{ href, route, navigate, isActive }"
+                  :to="{ name: m.name, params: m.params }"
                 >
-                  <a v-if="m.type == undefined" :href="href" class="dropdown-item"><i :class="m.icon"></i> {{ m.text }}</a>
+                  <a v-if="m.type == undefined" :href="href" class="dropdown-item">
+                    <i :class="m.icon"></i>
+                    {{ m.text }}
+                  </a>
                   <div v-if="m.type == 'divider'" class="dropdown-divider"></div>
-                  <a v-if="m.type == 'sign-out'" class="dropdown-item" href="#" @click.prevent="signOut()"><i :class="m.icon"></i> {{ m.text }}</a>
+                  <a
+                    v-if="m.type == 'sign-out'"
+                    class="dropdown-item"
+                    href="#"
+                    @click.prevent="signOut()"
+                  >
+                    <i :class="m.icon"></i>
+                    {{ m.text }}
+                  </a>
                 </router-link>
-              </template>              
+              </template>
             </div>
           </li>
         </ul>
@@ -172,9 +184,14 @@
   import { dropdown, collapse } from 'bootstrap'
   import helper from '../../src/js/helper.js'
   import axios from 'axios'
+  import topProgress from '../../src/components/top-progress.vue'
+  import { EventBus } from '../js/event-bus'
 
   export default {
     name: 'Tutu',
+    components: {
+      topProgress
+    },
     mixins: [helper],
     watch: {
       // eslint-disable-next-line no-unused-vars
@@ -184,6 +201,22 @@
     },
     created () {
       this.checkMenu(this.$route.name)
+    },
+    mounted () {
+      let self = this
+      EventBus.$on('working', status => {
+        if (status == null) {          
+          setTimeout(() => {
+            self.$refs.topProgress.fail()
+          }, 250)
+        } else if (status == true) {          
+          self.$refs.topProgress.start()
+        } else {          
+          setTimeout(() => {
+            self.$refs.topProgress.done()
+          }, 250)
+        }
+      })
     },
     methods: {
       checkMenu (name) {
