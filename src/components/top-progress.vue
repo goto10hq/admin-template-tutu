@@ -67,7 +67,7 @@
 
       trickleSpeed: {
         type: Number,
-        default: 250
+        default: 50 //250
       },
 
       easing: {
@@ -120,7 +120,7 @@
         return this.colorShadow || this.progressColor
       },
 
-      barStyle () {
+      barStyle () {                
         return {
           position: 'fixed',
           top: '0',
@@ -166,6 +166,12 @@
       },
 
       _work () {
+        // force the first tick
+        if (!this.isStarted || this.isPaused) {
+          return
+        }
+        this.increase()
+
         setTimeout(() => {
           if (!this.isStarted || this.isPaused) {
             return
@@ -183,7 +189,7 @@
         }
       },
 
-      start () {
+      start () {        
         this.isPaused = false
 
         if (this.show) {
@@ -195,7 +201,7 @@
 
       set (amount) {
         this.isPaused = false
-
+                
         let o
         if (this.isStarted) {
           o =
@@ -204,7 +210,7 @@
               : clamp(amount, this.minimum, 100)
         } else {
           o = 0
-        }
+        }        
 
         this.status = o === 100 ? null : o
 
@@ -252,6 +258,9 @@
       },
 
       done () {
+        if (this.status == null) {
+          this.status = 0
+        }        
         this.set(100)
       },
 
@@ -264,6 +273,9 @@
       },
 
       fail () {
+        if (this.status == null) {
+          this.status = 0
+        }        
         this.error = true
         this.done()
       }

@@ -208,15 +208,11 @@
       let self = this
       EventBus.$on('working', status => {
         if (status == null) {
-          setTimeout(() => {
-            self.$refs.topProgress.fail()
-          }, 250)
+          self.$refs.topProgress.fail()
         } else if (status == true) {
           self.$refs.topProgress.start()
-        } else {
-          setTimeout(() => {
-            self.$refs.topProgress.done()
-          }, 250)
+        } else {          
+          self.$refs.topProgress.done()          
         }
       })
     },
