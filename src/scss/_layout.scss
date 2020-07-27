@@ -216,6 +216,10 @@ body {
   display: flex;
   flex-direction: column;
   .container-fluid {
-    padding-top: $ggw;
+    padding-top: $ggw / 4;    
+    h1 {
+     font-size: 2rem;     
+     padding-bottom: $ggw; 
+    }
   }
 }
