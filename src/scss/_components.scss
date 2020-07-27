@@ -180,3 +180,14 @@ em {
 .w-max-7 {
 	max-width: 500px;
 }
+
+label.required:after {
+    content: " *";
+    color: #AAA;
+}
+
+.field-validation-error {    
+    color: #FF0000;
+    padding: 1px 6px;
+    display: inline-block;
+}
