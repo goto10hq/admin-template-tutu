@@ -29,6 +29,12 @@ export default {
                 })
             }
         },
+        validateEmail (value) {
+            if (typeof value === 'undefined' || value === null || value === '') {
+                return true
+            }
+            return /(^$|^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))\s*$)/.test(value)
+        },
         getErrorHtml (errors) {
             if (errors == null || errors.length == 0) {
                 return null
