@@ -67,7 +67,7 @@
 
       trickleSpeed: {
         type: Number,
-        default: 50 //250
+        default: 250
       },
 
       easing: {
