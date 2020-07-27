@@ -39,20 +39,22 @@
                   v-slot="{ href, route, navigate, isActive }"
                   :to="{ name: m.name, params: m.params }"
                 >
-                  <a v-if="m.type == undefined" :href="href" class="dropdown-item">
-                    <i :class="m.icon"></i>
-                    {{ m.text }}
-                  </a>
-                  <div v-if="m.type == 'divider'" class="dropdown-divider"></div>
-                  <a
-                    v-if="m.type == 'sign-out'"
-                    class="dropdown-item"
-                    href="#"
-                    @click.prevent="signOut()"
-                  >
-                    <i :class="m.icon"></i>
-                    {{ m.text }}
-                  </a>
+                  <span>
+                    <a v-if="m.type == undefined" :href="href" class="dropdown-item">
+                      <i :class="m.icon"></i>
+                      {{ m.text }}
+                    </a>
+                    <div v-if="m.type == 'divider'" class="dropdown-divider"></div>
+                    <a
+                      v-if="m.type == 'sign-out'"
+                      class="dropdown-item"
+                      href="#"
+                      @click.prevent="signOut()"
+                    >
+                      <i :class="m.icon"></i>
+                      {{ m.text }}
+                    </a>
+                  </span>
                 </router-link>
               </template>
             </div>
@@ -205,13 +207,13 @@
     mounted () {
       let self = this
       EventBus.$on('working', status => {
-        if (status == null) {          
+        if (status == null) {
           setTimeout(() => {
             self.$refs.topProgress.fail()
           }, 250)
-        } else if (status == true) {          
+        } else if (status == true) {
           self.$refs.topProgress.start()
-        } else {          
+        } else {
           setTimeout(() => {
             self.$refs.topProgress.done()
           }, 250)
