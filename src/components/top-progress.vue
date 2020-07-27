@@ -150,6 +150,7 @@
     },
 
     methods: {
+      // eslint-disable-next-line no-unused-vars
       beforeEnter (el) {
         this.opacity = 0
         this.progress = 0
@@ -161,6 +162,7 @@
         done()
       },
 
+      // eslint-disable-next-line no-unused-vars
       afterEnter (el) {
         this._runStart()
       },
