@@ -181,7 +181,7 @@ em {
 	max-width: 500px;
 }
 
-label.required:after {
+label.required:after, legend.required:after {
     content: " *";
     color: #AAA;
 }
