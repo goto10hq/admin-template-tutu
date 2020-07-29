@@ -1,8 +1,4 @@
-﻿{/* <style lang="sass">
-@import '../../src/scss/tutu.scss';
-</style> */}
-
-import Vue from 'vue'
+﻿import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
 import TutuLayout from '../pages/_tutu.vue'
@@ -83,7 +79,7 @@ export class Tutu {
                         })
                         .catch(function (error) {
                             store.commit('setUser', null)
-                            store.commit('picnic')
+                            store.commit('fail')
                             console.log('ERROR', error)
                             next({ path: config.signInUrl })
                         })
