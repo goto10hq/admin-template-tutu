@@ -64,14 +64,10 @@
         const items = [
           {
             text: 'Home',
-            href: 'https://google.com'
-          },
+            to: { name: 'one' }
+          },          
           {
-            text: 'Posts',
-            to: { name: 'home' }
-          },
-          {
-            text: 'Another Story',
+            text: 'Tutu page',
             active: true
           }
         ]
