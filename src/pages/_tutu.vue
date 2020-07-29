@@ -184,7 +184,6 @@
 <script>
   // eslint-disable-next-line no-unused-vars
   import { dropdown, collapse } from 'bootstrap'
-  import helper from '../../src/js/helper.js'
   import axios from 'axios'
   import topProgress from '../../src/components/top-progress.vue'
   import { EventBus } from '../js/event-bus'
@@ -193,8 +192,7 @@
     name: 'Tutu',
     components: {
       topProgress
-    },
-    mixins: [helper],
+    },    
     watch: {
       // eslint-disable-next-line no-unused-vars
       $route (to, from) {

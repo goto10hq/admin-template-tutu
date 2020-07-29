@@ -12,6 +12,7 @@ import Vuelidate from 'vuelidate'
 import SignIn from '../pages/sign-in.vue'
 import NotFound from '../pages/not-found.vue'
 import Store from './store'
+import helper from '../../src/js/helper.js'
 
 export class Tutu {
     // config
@@ -91,10 +92,12 @@ export class Tutu {
                 next()
             }
         })
+            
+        Vue.mixin(helper)
 
         new Vue({
             router,
-            store,
+            store,            
             render: h => h(TutuLayout)
         }).$mount(config.mountedElement)
 
