@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import VueScrollTo from 'vue-scrollto'
 
 export default {
     data () {
@@ -23,19 +24,13 @@ export default {
             this.isSidebarCollapsed = !this.isSidebarCollapsed
         },
         scrollToError (selector) {
-            var $outer = $('#frame-scrollable')
-
             selector = selector || '.errors, .error, .field-validation-error, [role="alert"]'
-
-            var $errors = $outer.find(selector)
-
-            if ($errors.length > 0) {
-                Vue.nextTick(function () {
-                    $outer.animate({
-                        scrollTop: $outer.scrollTop() - $outer.offset().top + $errors.filter(':first').offset().top - 15
-                    })
+            Vue.nextTick(function () {
+                VueScrollTo.scrollTo(selector, 500, {
+                    offset: -50,
+                    container: '#frame-scrollable'
                 })
-            }
-        }        
+            })
+        }
     }
 }

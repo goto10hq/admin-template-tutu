@@ -2,7 +2,9 @@
     "cSpell.words": [
         "Vuelidate",
         "Vuex",
+        "browserslist",
         "mixins",
-        "scrollable"
+        "scrollable",
+        "scrollto"
     ]
 }
