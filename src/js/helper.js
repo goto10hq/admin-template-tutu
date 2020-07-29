@@ -27,7 +27,7 @@ export default {
             selector = selector || '.errors, .error, .field-validation-error, [role="alert"]'
             Vue.nextTick(function () {
                 VueScrollTo.scrollTo(selector, 500, {
-                    offset: -50,
+                    offset: -100,
                     container: '#frame-scrollable'
                 })
             })
