@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 export default {
     data () {
         return {
@@ -20,72 +22,20 @@ export default {
         toggleSidebarVisibility () {
             this.isSidebarCollapsed = !this.isSidebarCollapsed
         },
-        scrollToError () {
+        scrollToError (selector) {
             var $outer = $('#frame-scrollable')
-            var $errors = $outer.find('.errors, .error')
+
+            selector = selector || '.errors, .error, [role="alert"]'
+
+            var $errors = $outer.find(selector)
+
             if ($errors.length > 0) {
-                $outer.animate({
-                    scrollTop: $outer.scrollTop() - $outer.offset().top + $errors.filter(':first').offset().top - 15
+                Vue.nextTick(function () {
+                    $outer.animate({
+                        scrollTop: $outer.scrollTop() - $outer.offset().top + $errors.filter(':first').offset().top - 15
+                    })
                 })
             }
-        },
-        validateEmail (value) {
-            if (typeof value === 'undefined' || value === null || value === '') {
-                return true
-            }
-            return /(^$|^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))\s*$)/.test(value)
-        },
-        getErrorHtml (errors) {
-            if (errors == null || errors.length == 0) {
-                return null
-            }
-
-            if (
-                errors.hasOwnProperty('message') &&
-                errors.hasOwnProperty('errors')
-            ) {
-                if (
-                    (errors.errors == null || errors.errors.length == 0) &&
-                    (errors.message == null || errors.message == '')
-                ) {
-                    return null
-                }
-
-                let result = ''
-
-                if (errors.message != null && errors.message != '') {
-                    result += '<strong>' + errors.message + '</strong><br />'
-                }
-
-                if (errors.errors != null && errors.errors.length != 0) {
-                    result += errors.errors
-                        .map(x => {
-                            return x.message
-                        })
-                        .join('<br />')
-                }
-
-                return result
-            } else if (errors.hasOwnProperty('errors')) {
-                if (
-                    errors.hasOwnProperty('isValid') &&
-                    (errors.isValid == undefined || errors.isValid != false)
-                ) {
-                    return null
-                }
-
-                if (errors.errors == null || errors.errors.length == 0) {
-                    return null
-                }
-
-                return errors.errors
-                    .map(x => {
-                        return x.value
-                    })
-                    .join('<br />')
-            }
-
-            return null
-        }
+        }        
     }
 }

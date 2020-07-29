@@ -5,15 +5,14 @@
         <slot name="close">&times;</slot>
       </span>
     </button>
-    <slot></slot>
+    <slot></slot>    
     <span v-html="errorMessage"></span>
   </div>
 </template>
 <script>
-  import helper from '../js/helper.js'
+  import getErrorHtml from '../js/errors.js'
 
-  export default {
-    mixins: [helper],
+  export default {    
     props: {
       id: {
         type: String,
@@ -67,7 +66,7 @@
         return false
       },
       errorMessage () {
-        return this.getErrorHtml(this.errors)
+        return getErrorHtml(this.errors)
       }
     },
     mounted () {
