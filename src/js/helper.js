@@ -25,7 +25,7 @@ export default {
         scrollToError (selector) {
             var $outer = $('#frame-scrollable')
 
-            selector = selector || '.errors, .error, [role="alert"]'
+            selector = selector || '.errors, .error, .field-validation-error, [role="alert"]'
 
             var $errors = $outer.find(selector)
 
