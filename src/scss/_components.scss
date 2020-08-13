@@ -138,6 +138,7 @@ em {
 }
 .form-control:focus ~ .floating-label,
 .form-control:not(:focus):valid ~ .floating-label,
+.form-control:disabled ~ .floating-label,
 .form-control[readonly] ~ .floating-label {
 	top: $input-padding-y / 5;
 	font-size: 0.6rem;
