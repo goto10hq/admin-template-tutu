@@ -16,7 +16,7 @@
           </span>
           <router-link
             class="navbar-brand"
-            :to="{ name: $store.state.config.menu[0].name, params: $store.state.config.menu[0].params }"
+            :to="{ name: menu[0].name, params: menu[0].params }"
           >{{ $store.state.config.title }}</router-link>
         </div>
         <ul class="navbar-nav ml-auto">
@@ -30,11 +30,9 @@
               aria-expanded="false"
             >{{ $store.state.user.login }}</a>
             <div class="dropdown-menu dropdown-menu-right">
-              <template
-                v-if="$store.state.config.userMenu != null && $store.state.config.userMenu.length > 0"
-              >
+              <template v-if="userMenu && userMenu.length > 0">
                 <router-link
-                  v-for="(m, mi) in $store.state.config.userMenu"
+                  v-for="(m, mi) in userMenu"
                   :key="'user-menu-' + mi"
                   v-slot="{ href, route, navigate, isActive }"
                   :to="{ name: m.name, params: m.params }"
@@ -64,8 +62,8 @@
     </keep-alive>
     <div class="content">
       <keep-alive>
-        <aside v-if="$store.state.user != null" class="sidebar">
-          <div v-if="$store.state.config.menuHeader != null" class="sidebar-header">
+        <aside v-if="$store.state.user" class="sidebar">
+          <div v-if="$store.state.config.menuHeader" class="sidebar-header">
             <div class="sidebar-nav-row">
               <span class="sidebar-nav-icon">
                 <i :class="$store.state.config.menuHeader.icon"></i>
@@ -75,10 +73,10 @@
           </div>
           <div class="sidebar-body vertical-scroll custom-scrollbar">
             <nav class="sidebar-nav">
-              <template v-for="m in $store.state.config.menu">
+              <template v-for="m in menu">
                 <div :key="m.name" :class="getActiveMenuClass(m)" class="sidebar-nav-group">
                   <router-link
-                    v-if="m.path != undefined && m.path != null"
+                    v-if="m.path"
                     :to="{ name: m.name, params: m.params }"
                     class="sidebar-nav-row sidebar-nav-item"
                   >
@@ -142,7 +140,7 @@
           </div>
           <div class="sidebar-footer">
             <router-link
-              v-for="f in $store.state.config.footer"
+              v-for="f in footer"
               :key="'f' + f.name"
               :to="{ name: f.name, params: f.params }"
               class="sidebar-nav-row"
@@ -192,7 +190,129 @@
     name: 'Tutu',
     components: {
       topProgress
-    },    
+    },
+    computed: {
+      userMenu () {
+        if (!this.$store.state.config.userMenu) {
+          return null
+        }
+
+        var result = []
+
+        for (let m of this.$store.state.config.userMenu) {
+          if (m.roles && m.roles.length > 0) {
+            let add = false
+            for (let r of m.roles) {
+              if (this.isInRole(r)) {
+                add = true
+                break
+              }
+            }
+            if (add) {
+              result.push(m)
+            }
+          } else {
+            result.push(m)
+          }
+        }
+
+        return result
+      },
+      footer () {
+        if (!this.$store.state.config.footer) {
+          return null
+        }
+
+        var result = []
+
+        for (let m of this.$store.state.config.footer) {
+          if (m.roles && m.roles.length > 0) {
+            let add = false
+            for (let r of m.roles) {
+              if (this.isInRole(r)) {
+                add = true
+                break
+              }
+            }
+            if (add) {
+              result.push(m)
+            }
+          } else {
+            result.push(m)
+          }
+        }
+
+        return result
+      },
+      menu () {
+        if (!this.$store.state.config.menu) {
+          return null
+        }
+
+        var result = []
+
+        for (let m of this.$store.state.config.menu) {
+          if (m.roles && m.roles.length > 0) {
+            let add = false
+            for (let r of m.roles) {
+              if (this.isInRole(r)) {
+                add = true
+                break
+              }
+            }
+            if (add) {
+              result.push(m)
+              if (m.subs && m.subs.length > 0) {
+                let subs = []
+                for (let ss of m.subs) {
+                  if (ss.roles && ss.roles.length > 0) {
+                    let add2 = false
+                    for (let r2 of ss.roles) {
+                      if (this.isInRole(r2)) {
+                        add2 = true
+                        break
+                      }
+                    }
+                    if (add2) {
+                      subs.push(ss)
+                    }
+                  }
+                  else {
+                    subs.push(ss)
+                  }
+                }
+                m.subs = subs
+              }
+            }
+          } else {
+            result.push(m)
+            if (m.subs && m.subs.length > 0) {
+              let subs = []
+              for (let ss of m.subs) {
+                if (ss.roles && ss.roles.length > 0) {
+                  let add2 = false
+                  for (let r2 of ss.roles) {
+                    if (this.isInRole(r2)) {
+                      add2 = true
+                      break
+                    }
+                  }
+                  if (add2) {
+                    subs.push(ss)
+                  }
+                }
+                else {
+                  subs.push(ss)
+                }
+              }
+              m.subs = subs
+            }
+          }
+        }
+
+        return result
+      }
+    },
     watch: {
       // eslint-disable-next-line no-unused-vars
       $route (to, from) {
@@ -209,8 +329,8 @@
           self.$refs.topProgress.fail()
         } else if (status == true) {
           self.$refs.topProgress.start()
-        } else {          
-          self.$refs.topProgress.done()          
+        } else {
+          self.$refs.topProgress.done()
         }
       })
     },

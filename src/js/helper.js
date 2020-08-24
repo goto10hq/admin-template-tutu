@@ -10,6 +10,13 @@ export default {
         }
     },
     methods: {
+        isInRole (role) {            
+            if (!this.$store.state.user || !this.$store.state.user.roles) {
+                return false
+            }
+
+            return this.$store.state.user.roles.some(r => r == role)            
+        },
         selectMenuWithSubItems (name, folding) {
             if (this.activeMenuWithSubItems == name && folding) {
                 this.activeMenuWithSubItems = null

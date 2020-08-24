@@ -17,7 +17,7 @@ export default {
     signInButton: 'Sign in',
     signInIcon: 'ti-user',
     // sign out
-    signOutAjaxUrl: '/api/sign-out',    
+    signOutAjaxUrl: '/api/sign-out',
     // menu
     // menuHeader: {
     //     icon: 'ti-star',
@@ -30,7 +30,8 @@ export default {
             name: 'one',
             path: '/one',
             params: {},
-            component: Generic
+            component: Generic,
+            roles: ['user', 'admin']
         },
         {
             icon: 'ti-gallery',
@@ -64,7 +65,8 @@ export default {
             name: 'one',
             path: '/one',
             params: {},
-            component: Generic
+            component: Generic,
+            roles: ['user']
         },
         {
             icon: 'ti-gallery',
@@ -73,6 +75,15 @@ export default {
             path: '/two',
             params: {},
             component: Generic
+        },
+        {
+            icon: 'ti-gallery',
+            text: 'Two (secret!)',
+            name: 'two2',
+            path: '/two2',
+            params: {},
+            component: Generic,
+            roles: ['admin']
         },
         {
             text: 'Other options',
@@ -92,7 +103,17 @@ export default {
                     name: 'sub-two',
                     path: '/sub-two/:id?',
                     params: {},
-                    component: Generic
+                    component: Generic,
+                    roles: ['user']
+                },
+                {
+                    icon: 'ti-truck',
+                    text: 'Sub Two (secret!)',
+                    name: 'sub-two2',
+                    path: '/sub-two2/:id?',
+                    params: {},
+                    component: Generic,
+                    roles: ['admin']
                 }
             ]
         },

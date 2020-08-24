@@ -115,7 +115,7 @@
         if (self.$store.state.config.devMode) {
           if (self.x.login === self.x.password) {
             self.$store.commit('picnic')
-            self.$store.commit('setUser', { login: self.x.login })
+            self.$store.commit('setUser', { login: self.x.login, roles: [ 'user' ] })
             if (self.$store.state.user != null) {
               self.$router.push({
                 name: self.$store.state.config.menu[0].name,
