@@ -15,6 +15,7 @@ export class Tutu {
     // signIn
     // notFound
     // store
+    // mixin
     constructor (settings) {
         Vue.use(Vuelidate)
         Vue.use(Vuex)
@@ -88,23 +89,19 @@ export class Tutu {
                 next()
             }
         })
-            
+
+        if (settings.mixin) {
+            Vue.mixin(settings.mixin)
+        }
+
         Vue.mixin(helper)
 
         new Vue({
             router,
-            store,            
+            store,
             render: h => h(TutuLayout)
         }).$mount(config.mountedElement)
 
         sync(store, router)
     }
 }
-
-
-
-
-
-/* ----------- vue render ----------- */
-
-
