@@ -110,6 +110,7 @@ body {
   left: 0;
   top: 0;
   bottom: 0;
+  z-index: 1;
   @include media-breakpoint-up(md) {
     width: $tutu-sidebar-icon-width;
     position: relative;
