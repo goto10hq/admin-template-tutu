@@ -1,10 +1,11 @@
-import helper from './js/helper'
-import alert from './components/alert.vue'
-import topProgress from './components/top-progress.vue'
+import Helper from './js/helper'
+import Alert from './components/alert.vue'
+import TopProgress from './components/top-progress.vue'
 
-export default
-    {
-        helper,
-        alert,
-        topProgress
-    }
+const Tutu = {
+    Helper,
+    Alert,
+    TopProgress
+}
+
+module.exports = Tutu

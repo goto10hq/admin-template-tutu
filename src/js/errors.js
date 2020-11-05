@@ -21,9 +21,11 @@ const getErrorHtml = function (errors) {
         }
 
         if (errors.errors != null && errors.errors.length != 0) {
-            for (let i = 0; i < errors.errors.length; i++) {
-                result += errors.errors[i].message + '<br />'
-            }            
+            result += errors.errors
+                .map(x => {
+                    return x.message
+                })
+                .join('<br />')
         }
 
         return result
@@ -39,13 +41,11 @@ const getErrorHtml = function (errors) {
             return null
         }
 
-        let result = ''
-
-        for (let i = 0; i < errors.errors.length; i++) {
-            result += errors.errors[i].value + '<br />'
-        }            
-
-        return result
+        return errors.errors
+            .map(x => {
+                return x.value
+            })
+            .join('<br />')
     }
 
     return null
