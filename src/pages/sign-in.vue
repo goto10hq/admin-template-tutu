@@ -52,7 +52,7 @@
   </div>
 </template>
 <script>
-  import { required } from 'vuelidate/lib/validators'
+  import { required } from 'vuelidate/dist/validators.min.js'
   import axios from 'axios'
   import alert from '../../src/components/alert.vue'
 
