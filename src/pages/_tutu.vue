@@ -276,7 +276,10 @@
         var result = []
 
         for (let m of this.$store.state.config.userMenu) {
-          let visible = m.visible || true
+          let visible = m.visible
+          if (visible == undefined || visible == null) {
+            visible = true
+          }
           if (m.roles && m.roles.length > 0) {
             let add = false
             for (let r of m.roles) {
@@ -303,7 +306,10 @@
         var result = []
 
         for (let m of this.$store.state.config.footer) {
-          let visible = m.visible || true
+          let visible = m.visible
+          if (visible == undefined || visible == null) {
+            visible = true
+          }
           if (m.roles && m.roles.length > 0) {
             let add = false
             for (let r of m.roles) {
@@ -330,7 +336,12 @@
         var result = []
 
         for (let m of this.$store.state.config.menu) {
-          let visible = m.visible || true
+          let visible = m.visible
+          
+          if (visible == undefined || visible == null) {            
+            visible = true
+          }          
+          
           if (m.roles && m.roles.length > 0) {
             let add = false
             for (let r of m.roles) {
@@ -344,7 +355,10 @@
               if (m.subs && m.subs.length > 0) {
                 let subs = []
                 for (let ss of m.subs) {
-                  let visible2 = ss.visible || true
+                  let visible2 = ss.visible
+                  if (visible2 == undefined || visible2 == null) {
+                    visible2 = true
+                  }
                   if (ss.roles && ss.roles.length > 0) {
                     let add2 = false
                     for (let r2 of ss.roles) {
@@ -365,7 +379,10 @@
               }
             }
           } else {
-            let visible = m.visible || true
+            let visible = m.visible
+            if (visible == undefined || visible == null) {
+              visible = true
+            }
 
             if (visible) {
               result.push(m)
@@ -373,7 +390,10 @@
               if (m.subs && m.subs.length > 0) {
                 let subs = []
                 for (let ss of m.subs) {
-                  let visible2 = ss.visible || true
+                  let visible2 = ss.visible
+                  if (visible2 == undefined || visible2 == null) {
+                    visible2 = true
+                  }
                   if (ss.roles && ss.roles.length > 0) {
                     let add2 = false
                     for (let r2 of ss.roles) {

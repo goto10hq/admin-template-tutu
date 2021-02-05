@@ -31,7 +31,7 @@ export default {
             path: '/one',
             params: {},
             component: Generic,
-            roles: ['user', 'admin']
+            roles: ['user', 'admin'],            
         },
         {
             icon: 'ti-gallery',
@@ -66,7 +66,8 @@ export default {
             name: 'dashboard',
             path: '/dashboard',
             params: {},
-            component: Generic
+            component: Generic,
+            visible: false
         },
         {
             icon: 'ti-alarm-clock',
