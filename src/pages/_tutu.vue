@@ -1,13 +1,22 @@
 ﻿<template>
   <div
     class="wrapper"
-    :class="[{'sidebar-collapsed' : isSidebarCollapsed}, isSidebarEntire ? 'sidebar-entire' : 'sidebar-compressed']"
+    :class="[
+      { 'sidebar-collapsed': isSidebarCollapsed },
+      isSidebarEntire ? 'sidebar-entire' : 'sidebar-compressed',
+    ]"
   >
     <top-progress ref="topProgress"></top-progress>
     <keep-alive>
-      <nav v-if="$store.state.user != null" class="navbar navbar-expand navbar-light bg-light">
+      <nav
+        v-if="$store.state.user != null"
+        class="navbar navbar-expand navbar-light bg-light"
+      >
         <div class="sidebar-nav-row">
-          <span class="sidebar-nav-icon sidebar-toggle" @click="toggleSidebarVisibility()">
+          <span
+            class="sidebar-nav-icon sidebar-toggle"
+            @click="toggleSidebarVisibility()"
+          >
             <span class="hamburger">
               <span></span>
               <span></span>
@@ -17,7 +26,8 @@
           <router-link
             class="navbar-brand"
             :to="{ name: menu[0].name, params: menu[0].params }"
-          >{{ $store.state.config.title }}</router-link>
+            >{{ $store.state.config.title }}</router-link
+          >
         </div>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item dropdown">
@@ -28,7 +38,8 @@
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
-            >{{ $store.state.user.login }}</a>
+              >{{ $store.state.user.login }}</a
+            >
             <div class="dropdown-menu dropdown-menu-right">
               <template v-if="userMenu && userMenu.length > 0">
                 <router-link
@@ -38,11 +49,18 @@
                   :to="{ name: m.name, params: m.params }"
                 >
                   <span>
-                    <a v-if="m.type == undefined" :href="href" class="dropdown-item">
+                    <a
+                      v-if="m.type == undefined"
+                      :href="href"
+                      class="dropdown-item"
+                    >
                       <i :class="m.icon"></i>
                       {{ m.text }}
                     </a>
-                    <div v-if="m.type == 'divider'" class="dropdown-divider"></div>
+                    <div
+                      v-if="m.type == 'divider'"
+                      class="dropdown-divider"
+                    ></div>
                     <a
                       v-if="m.type == 'sign-out'"
                       class="dropdown-item"
@@ -68,13 +86,19 @@
               <span class="sidebar-nav-icon">
                 <i :class="$store.state.config.menuHeader.icon"></i>
               </span>
-              <span class="sidebar-nav-text">{{ $store.state.config.menuHeader.text }}</span>
+              <span class="sidebar-nav-text">{{
+                $store.state.config.menuHeader.text
+              }}</span>
             </div>
           </div>
           <div class="sidebar-body vertical-scroll custom-scrollbar">
             <nav class="sidebar-nav">
               <template v-for="m in menu">
-                <div :key="m.name" :class="getActiveMenuClass(m)" class="sidebar-nav-group">
+                <div
+                  :key="m.name"
+                  :class="getActiveMenuClass(m)"
+                  class="sidebar-nav-group"
+                >
                   <router-link
                     v-if="m.path"
                     :to="{ name: m.name, params: m.params }"
@@ -82,15 +106,31 @@
                   >
                     <span class="sidebar-nav-icon">
                       <i
-                        v-if="m.subs == undefined || m.subs == null || m.subs.length == 0"
+                        v-if="
+                          m.subs == undefined ||
+                          m.subs == null ||
+                          m.subs.length == 0
+                        "
                         :class="m.icon"
                       ></i>
                       <i
-                        v-if="m.subs != undefined && m.subs != null && m.subs.length > 0 && (activeMenuWithSubItems == null || activeMenuWithSubItems != m.name)"
+                        v-if="
+                          m.subs != undefined &&
+                          m.subs != null &&
+                          m.subs.length > 0 &&
+                          (activeMenuWithSubItems == null ||
+                            activeMenuWithSubItems != m.name)
+                        "
                         class="ti-angle-right"
                       ></i>
                       <i
-                        v-if="m.subs != undefined && m.subs != null && m.subs.length > 0 && activeMenuWithSubItems != null && activeMenuWithSubItems == m.name"
+                        v-if="
+                          m.subs != undefined &&
+                          m.subs != null &&
+                          m.subs.length > 0 &&
+                          activeMenuWithSubItems != null &&
+                          activeMenuWithSubItems == m.name
+                        "
                         class="ti-angle-down"
                       ></i>
                     </span>
@@ -104,22 +144,44 @@
                   >
                     <span class="sidebar-nav-icon">
                       <i
-                        v-if="m.subs == undefined || m.subs == null || m.subs.length == 0"
+                        v-if="
+                          m.subs == undefined ||
+                          m.subs == null ||
+                          m.subs.length == 0
+                        "
                         :class="m.icon"
                       ></i>
                       <i
-                        v-if="m.subs != undefined && m.subs != null && m.subs.length > 0 && (activeMenuWithSubItems == null || activeMenuWithSubItems != m.name)"
+                        v-if="
+                          m.subs != undefined &&
+                          m.subs != null &&
+                          m.subs.length > 0 &&
+                          (activeMenuWithSubItems == null ||
+                            activeMenuWithSubItems != m.name)
+                        "
                         class="ti-angle-right"
                       ></i>
                       <i
-                        v-if="m.subs != undefined && m.subs != null && m.subs.length > 0 && activeMenuWithSubItems != null && activeMenuWithSubItems == m.name"
+                        v-if="
+                          m.subs != undefined &&
+                          m.subs != null &&
+                          m.subs.length > 0 &&
+                          activeMenuWithSubItems != null &&
+                          activeMenuWithSubItems == m.name
+                        "
                         class="ti-angle-down"
                       ></i>
                     </span>
                     <span class="sidebar-nav-text">{{ m.text }}</span>
                   </a>
                   <template
-                    v-if="m.subs != undefined && m.subs != null && m.subs.length > 0 && activeMenuWithSubItems != null && activeMenuWithSubItems == m.name"
+                    v-if="
+                      m.subs != undefined &&
+                      m.subs != null &&
+                      m.subs.length > 0 &&
+                      activeMenuWithSubItems != null &&
+                      activeMenuWithSubItems == m.name
+                    "
                   >
                     <router-link
                       v-for="m2 in m.subs"
@@ -150,16 +212,27 @@
               </span>
               <span class="sidebar-nav-text">{{ f.text }}</span>
             </router-link>
-            <div v-if="$store.state.config.footerToggleButton != null" class="sidebar-nav-row">
+            <div
+              v-if="$store.state.config.footerToggleButton != null"
+              class="sidebar-nav-row"
+            >
               <template
-                v-if="$store.state.config.footerToggleButton.text != null && $store.state.config.footerToggleButton.text != ''"
+                v-if="
+                  $store.state.config.footerToggleButton.text != null &&
+                  $store.state.config.footerToggleButton.text != ''
+                "
               >
                 <span class="sidebar-nav-icon">
                   <i :class="$store.state.config.footerToggleButton.icon"></i>
                 </span>
-                <span class="sidebar-nav-text">{{ $store.state.config.footerToggleButton.text }}</span>
+                <span class="sidebar-nav-text">{{
+                  $store.state.config.footerToggleButton.text
+                }}</span>
               </template>
-              <button class="sidebar-nav-icon ml-auto visible-entire" @click="toggleSidebarWidth()">
+              <button
+                class="sidebar-nav-icon ml-auto visible-entire"
+                @click="toggleSidebarWidth()"
+              >
                 <i class="ti-angle-double-left"></i>
               </button>
             </div>
@@ -171,7 +244,10 @@
           </div>
         </aside>
       </keep-alive>
-      <div class="frame" :class="{ 'justify-content-center': $store.state.user == null }">
+      <div
+        class="frame"
+        :class="{ 'justify-content-center': $store.state.user == null }"
+      >
         <div id="frame-scrollable" class="container-fluid vertical-scroll">
           <router-view></router-view>
         </div>
@@ -200,6 +276,7 @@
         var result = []
 
         for (let m of this.$store.state.config.userMenu) {
+          let visible = m.visible || true
           if (m.roles && m.roles.length > 0) {
             let add = false
             for (let r of m.roles) {
@@ -208,10 +285,10 @@
                 break
               }
             }
-            if (add) {
+            if (add && visible) {
               result.push(m)
             }
-          } else {
+          } else if (visible) {
             result.push(m)
           }
         }
@@ -226,6 +303,7 @@
         var result = []
 
         for (let m of this.$store.state.config.footer) {
+          let visible = m.visible || true
           if (m.roles && m.roles.length > 0) {
             let add = false
             for (let r of m.roles) {
@@ -234,10 +312,10 @@
                 break
               }
             }
-            if (add) {
+            if (add && visible) {
               result.push(m)
             }
-          } else {
+          } else if (visible) {
             result.push(m)
           }
         }
@@ -252,6 +330,7 @@
         var result = []
 
         for (let m of this.$store.state.config.menu) {
+          let visible = m.visible || true
           if (m.roles && m.roles.length > 0) {
             let add = false
             for (let r of m.roles) {
@@ -260,11 +339,12 @@
                 break
               }
             }
-            if (add) {
+            if (add && visible) {
               result.push(m)
               if (m.subs && m.subs.length > 0) {
                 let subs = []
                 for (let ss of m.subs) {
+                  let visible2 = ss.visible || true
                   if (ss.roles && ss.roles.length > 0) {
                     let add2 = false
                     for (let r2 of ss.roles) {
@@ -273,11 +353,11 @@
                         break
                       }
                     }
-                    if (add2) {
+                    if (add2 && visible2) {
                       subs.push(ss)
                     }
                   }
-                  else {
+                  else if (visible2) {
                     subs.push(ss)
                   }
                 }
@@ -285,27 +365,33 @@
               }
             }
           } else {
-            result.push(m)
-            if (m.subs && m.subs.length > 0) {
-              let subs = []
-              for (let ss of m.subs) {
-                if (ss.roles && ss.roles.length > 0) {
-                  let add2 = false
-                  for (let r2 of ss.roles) {
-                    if (this.isInRole(r2)) {
-                      add2 = true
-                      break
+            let visible = m.visible || true
+
+            if (visible) {
+              result.push(m)
+
+              if (m.subs && m.subs.length > 0) {
+                let subs = []
+                for (let ss of m.subs) {
+                  let visible2 = ss.visible || true
+                  if (ss.roles && ss.roles.length > 0) {
+                    let add2 = false
+                    for (let r2 of ss.roles) {
+                      if (this.isInRole(r2)) {
+                        add2 = true
+                        break
+                      }
+                    }
+                    if (add2 && visible2) {
+                      subs.push(ss)
                     }
                   }
-                  if (add2) {
+                  else if (visible2) {
                     subs.push(ss)
                   }
                 }
-                else {
-                  subs.push(ss)
-                }
+                m.subs = subs
               }
-              m.subs = subs
             }
           }
         }

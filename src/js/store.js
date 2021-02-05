@@ -5,7 +5,7 @@ export default {
     state: {
         user: null,
         working: false,
-        config: null
+        config: null        
     },
     mutations: {
         setUser (state, info) {

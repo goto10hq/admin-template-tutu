@@ -42,6 +42,15 @@ export default {
             component: Generic
         },
         {
+            icon: 'ti-gallery',
+            text: 'Fake two',
+            name: 'two',
+            path: '/two',
+            params: {},
+            component: Generic,
+            visible: false
+        },
+        {
             type: 'divider'
         },
         {
