@@ -13,6 +13,7 @@ import helper from '../../src/js/helper.js'
 export class Tutu {
     // config
     // signIn
+    // tutuLayout   
     // notFound
     // store
     // mixin
@@ -27,6 +28,7 @@ export class Tutu {
 
         let signIn = settings.signIn || SignIn
         let notFound = settings.notFound || NotFound
+        let tutuLayout = settings.tutuLayout || TutuLayout
 
         let routes = [
             { path: config.signInUrl, component: signIn }
@@ -99,7 +101,7 @@ export class Tutu {
         new Vue({
             router,
             store,
-            render: h => h(TutuLayout)
+            render: h => h(tutuLayout)
         }).$mount(config.mountedElement)
 
         sync(store, router)
